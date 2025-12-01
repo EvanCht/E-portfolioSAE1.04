@@ -1,20 +1,337 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Portfolio — Evan Chavot</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        /* ---------- PATTERN AURORA (même que sur la home) ---------- */
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                    ellipse at 20% 30%,
+                    rgba(138, 43, 226, 0.8) 0%,
+                    rgba(138, 43, 226, 0) 60%
+                ),
+                radial-gradient(
+                    ellipse at 80% 50%,
+                    rgba(0, 191, 255, 0.7) 0%,
+                    rgba(0, 191, 255, 0) 70%
+                ),
+                radial-gradient(
+                    ellipse at 50% 80%,
+                    rgba(50, 205, 50, 0.6) 0%,
+                    rgba(50, 205, 50, 0) 65%
+                ),
+                linear-gradient(135deg, #000000 0%, #0a0520 100%);
+            background-blend-mode: overlay, screen, hard-light;
+            z-index: -10;
+            animation: aurora-drift 25s infinite alternate ease-in-out;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 60px
+                );
+            animation: grid-shift 20s linear infinite;
+        }
+        .container::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center,
+                transparent 70%,
+                rgba(10, 5, 32, 0.8) 100%
+            );
+            animation: aurora-pulse 8s infinite alternate;
+        }
+        @keyframes aurora-drift {
+            0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+            50% { background-position: -10% -5%; filter: hue-rotate(30deg) brightness(1.15); }
+            100% { background-position: 5% 10%; filter: hue-rotate(60deg); }
+        }
+        @keyframes grid-shift { 0% { transform: translate(0, 0); } 100% { transform: translate(-50%, -50%); } }
+        @keyframes aurora-pulse { 0% { opacity: 0.8; } 50% { opacity: 0.5; } 100% { opacity: 0.8; } }
 
-{% block title %}Hello CVController!{% endblock %}
+        /* ---------- LAYOUT & TYPO ---------- */
+        :root{
+            --card-bg: rgba(10, 8, 20, 0.55);
+            --accent: linear-gradient(90deg, rgba(255,94,247,0.9), rgba(2,245,255,0.9));
+            --muted: #cfcdd3;
+            --glass-border: rgba(255,255,255,0.06);
+        }
+        body{
+            margin:0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: #eef0f6;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+        }
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+        .page {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 20px;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .card {
+            width: 1100px;
+            max-width: calc(100% - 40px);
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 32px;
+            padding: 34px;
+            backdrop-filter: blur(6px) saturate(120%);
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/evanc/E-portfolioSAE1.04/src/Controller/CVController.php</code></li>
-        <li>Your template at <code>C:/Users/evanc/E-portfolioSAE1.04/templates/cv/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+        /* mobile */
+        @media (max-width: 880px) {
+            .card { grid-template-columns: 1fr; padding: 22px; gap: 18px; }
+            .left { order: 1; }
+            .right { order: 2; }
+        }
+
+        /* ---------- LEFT COLUMN (infos perso) ---------- */
+        .left {
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            font-size:28px;
+            color:#fff;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight:700;
+            letter-spacing:0.2px;
+        }
+        .subtitle { color: var(--muted); font-size: 13px; margin-bottom:6px; }
+
+        .info-list {
+            background: rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #e9e9ef;
+            line-height:1.6;
+        }
+        .info-list b{ color:#fff; display:inline-block; width:130px; }
+
+        /* ---------- RIGHT COLUMN (profil, compétences, parcours) ---------- */
+        .right {
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+
+        h1.title {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        h3.section {
+            margin: 0;
+            font-size: 15px;
+            color: #fff;
+            letter-spacing:0.2px;
+        }
+        .muted { color: var(--muted); font-size: 14px; }
+
+        .profile {
+            background: rgba(255,255,255,0.02);
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            color:#f3f4f8;
+        }
+
+        .skills, .experience, .education, .langs, .interests, .projects {
+            background: rgba(255,255,255,0.02);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            color:#eaecef;
+        }
+
+        ul.clean { margin:0; padding-left:18px; }
+        ul.clean li { margin-bottom:8px; }
+
+        /* ---------- ACTIONS (boutons) ---------- */
+        .actions {
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-top:6px;
+        }
+
+        .fancy-btn {
+            min-width: 140px;
+            height: 48px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            border-radius: 10px;
+            border: none;
+            position: relative;
+            background: #100720;
+            transition: 0.12s;
+            font-weight:600;
+            padding: 0 18px;
+        }
+        .fancy-btn::after {
+            content:'';
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2%);
+            filter: blur(14px);
+            z-index: -1;
+            position: absolute;
+            left: 0; top: 0;
+            border-radius: 10px;
+        }
+        .fancy-btn:hover { transform: translateY(-3px); }
+
+        /* small helper */
+        .section-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+        @media (max-width:880px) { .section-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container"></div>
+
+<main class="page">
+    <article class="card">
+
+        <!-- LEFT: infos perso -->
+        <aside class="left">
+            <div style="display:flex; align-items:center; gap:14px;">
+                <div class="avatar">EC</div>
+                <div>
+                    <div class="name">Chavot Evan</div>
+                    <div class="subtitle">18 ans — Étudiant / BUT RT</div>
+                </div>
+            </div>
+
+            <div class="info-list" role="list">
+                <div><b>Adresse :</b> 37 rue des grandes maison, La Fouillouse</div>
+                <div><b>Téléphone :</b> 06 73 77 49 00</div>
+                <div><b>Email :</b> evan.chavot@icloud.com</div>
+                <div><b>Permis :</b> Non</div>
+            </div>
+
+            <div class="actions">
+                <button class="fancy-btn" onclick="window.print()">Imprimer</button>
+                <button class="fancy-btn" onclick="location.href='mailto:evan.chavot@icloud.com'">Contacter</button>
+            </div>
+        </aside>
+
+        <!-- RIGHT: profil, compétences, parcours -->
+        <section class="right">
+            <header>
+                <h1 class="title">Profil — Accroche</h1>
+                <div class="muted">De nature assez réservée, je n’aime pas attirer l’attention sur moi. Cependant, je sais prendre la parole quand il le faut et je m'implique dans mes projets.</div>
+            </header>
+
+            <div class="skills">
+                <h3 class="section">Compétences</h3>
+                <ul class="clean">
+                    <li>Lire, exécuter, corriger et modifier un programme</li>
+                    <li>Utiliser un système informatique et ses outils</li>
+                    <li>Traduire un algorithme dans un langage et pour un environnement donné</li>
+                    <li>Connaître l’architecture et les technologies d’un site Web</li>
+                    <li>Communiquer avec un tiers et adapter son discours</li>
+                    <li>Mesurer et analyser les signaux</li>
+                    <li>Installer un poste client et documenter la procédure</li>
+                    <li>Maîtriser les principes des systèmes d’exploitation et configurer un réseau local</li>
+                </ul>
+            </div>
+
+            <div class="section-grid">
+                <div class="experience">
+                    <h3 class="section">Expériences professionnelles</h3>
+                    <ul class="clean">
+                        <li>Stage d’observation — Abicom</li>
+                    </ul>
+                </div>
+
+                <div class="education">
+                    <h3 class="section">Diplômes & établissements</h3>
+                    <ul class="clean">
+                        <li>Collège privé Joseph Collard — Cambridge A2 (4ème) & A2/B1 (3ème)</li>
+                        <li>Lycée Simone Weil — BAC général (Mathématiques / NSI)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-grid">
+                <div class="langs">
+                    <h3 class="section">Langues</h3>
+                    <ul class="clean">
+                        <li>Anglais — B1</li>
+                        <li>Espagnol — A1</li>
+                    </ul>
+                </div>
+
+                <div class="interests">
+                    <h3 class="section">Centres d'intérêt</h3>
+                    <ul class="clean">
+                        <li>Le Japon — culture, architecture, mangas</li>
+                        <li>Comics Américains & adaptations (Marvel / DC)</li>
+                        <li>Jeux vidéo</li>
+                        <li>Univers Disney / Pixar</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+    </article>
+</main>
+
+</body>
+</html>
