@@ -161,6 +161,10 @@
             background: #100720;
             transition: 0.15s;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
         .fancy-btn::after {
@@ -203,7 +207,7 @@
     <p>Choisissez une des sections ci-dessous pour commencer :</p>
 
    <div class="button-container">
-    <button class="fancy-btn">CV</button>
+    <a href="{{ path('app_cv') }}" class="fancy-btn">CV</a>
     <button class="fancy-btn">En savoir plus</button>
     <button class="fancy-btn">Pourquoi un BUT RT ?</button>
     <button class="fancy-btn">Portfolio</button>

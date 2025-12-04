@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CVController extends AbstractController
 {
-    #[Route('/cv', name: 'app_c_v')]
+    #[Route('/cv', name: 'app_cv')]
     public function index(): Response
     {
         return $this->render('cv/index.html.twig', [
