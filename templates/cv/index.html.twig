@@ -129,18 +129,11 @@
             gap:18px;
         }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-weight:700;
-            font-size:28px;
-            color:#fff;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+        .avatar-img {
+        width: 120px;
+        height: 120px%;
+        object-fit: cover;  
+        border-radius: 14px;
         }
 
         .name {
@@ -250,7 +243,9 @@
         <!-- LEFT: infos perso -->
         <aside class="left">
             <div style="display:flex; align-items:center; gap:14px;">
-                <div class="avatar">EC</div>
+                <div class="avatar">
+                <img src="{{ asset('images/photo_cv.jpg') }}" alt="Photo de profil" class="avatar-img">
+                </div>
                 <div>
                     <div class="name">Chavot Evan</div>
                     <div class="subtitle">18 ans — Étudiant / BUT RT</div>
@@ -273,7 +268,7 @@
         <!-- RIGHT: profil, compétences, parcours -->
         <section class="right">
             <header>
-                <h1 class="title">Profil — Accroche</h1>
+                <h1 class="title">Profil</h1>
                 <div class="muted">De nature assez réservée, je n’aime pas attirer l’attention sur moi. Cependant, je sais prendre la parole quand il le faut et je m'implique dans mes projets.</div>
             </header>
 
