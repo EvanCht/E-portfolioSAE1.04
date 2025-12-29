@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>En savoir plus — Evan Chavot</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        /* ---------- PATTERN AURORA (même que sur la home) ---------- */
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at 20% 30%,
+                rgba(138, 43, 226, 0.8) 0%,
+                rgba(138, 43, 226, 0) 60%
+            ),
+            radial-gradient(
+                ellipse at 80% 50%,
+                rgba(0, 191, 255, 0.7) 0%,
+                rgba(0, 191, 255, 0) 70%
+            ),
+            radial-gradient(
+                ellipse at 50% 80%,
+                rgba(50, 205, 50, 0.6) 0%,
+                rgba(50, 205, 50, 0) 65%
+            ),
+            linear-gradient(135deg, #000000 0%, #0a0520 100%);
+            background-blend-mode: overlay, screen, hard-light;
+            z-index: -10;
+            animation: aurora-drift 25s infinite alternate ease-in-out;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.02) 0px,
+                rgba(255, 255, 255, 0.02) 1px,
+                transparent 1px,
+                transparent 40px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 60px
+            );
+            animation: grid-shift 20s linear infinite;
+        }
+        .container::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center,
+                transparent 70%,
+                rgba(10, 5, 32, 0.8) 100%
+            );
+            animation: aurora-pulse 8s infinite alternate;
+        }
+        @keyframes aurora-drift {
+            0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+            50% { background-position: -10% -5%; filter: hue-rotate(30deg) brightness(1.15); }
+            100% { background-position: 5% 10%; filter: hue-rotate(60deg); }
+        }
+        @keyframes grid-shift { 0% { transform: translate(0, 0); } 100% { transform: translate(-50%, -50%); } }
+        @keyframes aurora-pulse { 0% { opacity: 0.8; } 50% { opacity: 0.5; } 100% { opacity: 0.8; } }
+        
+        /* ---------- LAYOUT & TYPO ---------- */
+        :root{
+            --card-bg: rgba(10, 8, 20, 0.55);
+            --accent: linear-gradient(90deg, rgba(255,94,247,0.9), rgba(2,245,255,0.9));
+            --muted: #cfcdd3;
+            --glass-border: rgba(255,255,255,0.06);
+        }
+        body{
+            margin:0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: #eef0f6;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+            padding-bottom: 80px;
+        }
+        .page {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 20px;
+        }
+        .card {
+            width: 1100px;
+            max-width: calc(100% - 40px);
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 34px;
+            backdrop-filter: blur(6px) saturate(120%);
+        }
+        @media (max-width: 880px) {
+            .card { padding: 22px; gap: 18px; }
+        }
+        /* ---------- CONTENU ---------- */
+        .content {
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+        h1.title {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+        h3.section {
+            margin: 0;
+            font-size: 15px;
+            color: #fff;
+            letter-spacing:0.2px;
+        }
+        .muted { color: var(--muted); font-size: 14px; }
+        .profile {
+            background: rgba(255,255,255,0.02);
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            color:#f3f4f8;
+        }
+        .skills, .experience, .education, .langs, .interests {
+            background: rgba(255,255,255,0.02);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            color:#eaecef;
+        }
+        ul.clean { margin:0; padding-left:18px; }
+        ul.clean li { margin-bottom:8px; }
+        .section-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+        @media (max-width:880px) { .section-grid { grid-template-columns: 1fr; } }
+
+        /* ---------- NAV BAR FIXE EN BAS ---------- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+        }
+        .bottom-nav a, .bottom-nav .nav-center {
+            padding: 12px 24px;
+            margin: 0 20px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .bottom-nav a {
+            cursor: pointer;
+        }
+        .bottom-nav a:hover {
+            transform: scale(1.05) rotate(3deg);
+            background: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 0, 0, 0.6), rgba(138, 43, 226, 0.2));
+        }
+        .bottom-nav .nav-center {
+            cursor: not-allowed;
+            pointer-events: none;
+            color: rgba(255, 255, 255, 0.7);
+            background: transparent;
+        }
+        .bottom-nav .nav-center.active {
+            transform: scale(1.04) rotate(3deg);
+            background: radial-gradient(circle farthest-corner at 10% 20%, rgb(0, 191, 255), rgba(138, 43, 226, 0.5));
+            transition: 0.5s;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container"></div>
+
+<main class="page">
+    <article class="card">
+        <section class="content">
+            <header>
+                <h1 class="title">En savoir plus (E-Portfolio)</h1>
+            </header>
+
+            <div class="profile">
+                <h3 class="section">À propos de moi</h3>
+                <p class="muted">Je suis très investi dans ce qui me plaît, j'aime trouver les outils de développer mon imagination que ce soit en dessinant en jouant du piano programmer en python...</p>
+            </div>
+
+            <div class="skills">
+                <h3 class="section">Parcours personnel</h3>
+                <ul class="clean">
+                    <li>Je peux aider quand sans abus bien sur je me suis donc engagé dans le BDE</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3 class="section">Qualités humaines</h3>
+                <ul class="clean">
+                    <li>À l'écoute</li>
+                    <li>Compréhensif</li>
+                    <li>Essaye toujours d'être le plus juste possible</li>
+                </ul>
+            </div>
+
+            <div class="education">
+                <h3 class="section">Anecdotes / Fun facts</h3>
+                <ul class="clean">
+                    <li>Je déteste l'injustice</li>
+                    <li>Depuis petit je voulais travailler dans « l'informatique » je voulais « faire des jeux vidéo »</li>
+                    <li>Je me passionne facilement pour les œuvres avec des univers complexes</li>
+                    <li>Il y'a pas mal de domaine que j'apprécie ou je suis « moyen »</li>
+                </ul>
+            </div>
+        </section>
+    </article>
+</main>
+
+<!-- ============ NAV BAR EN BAS ============ -->
+<nav class="bottom-nav">
+    <a href="{{ path('app_cv') }}">← CV</a>
+    <span class="nav-center active">Vous êtes ici : Pour en savoir Plus</span>
+    <a href="{{ path('app_cv') }}">Pourquoi un BUT RT →</a>
+</nav>
+
+</body>
+</html>
