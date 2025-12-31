@@ -2,10 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <title>En savoir plus — Evan Chavot</title>
+    <title>Pourquoi un BUT RT — Evan Chavot</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
-        /* ---------- PATTERN AURORA (même que sur la home) ---------- */
+        /* ---------- PATTERN AURORA ---------- */
         .container {
             position: fixed;
             top: 0;
@@ -78,7 +78,6 @@
         /* ---------- LAYOUT & TYPO ---------- */
         :root{
             --card-bg: rgba(10, 8, 20, 0.55);
-            --accent: linear-gradient(90deg, rgba(255,94,247,0.9), rgba(2,245,255,0.9));
             --muted: #cfcdd3;
             --glass-border: rgba(255,255,255,0.06);
         }
@@ -88,7 +87,7 @@
             color: #eef0f6;
             -webkit-font-smoothing:antialiased;
             -moz-osx-font-smoothing:grayscale;
-            line-height:1.5;
+            line-height:1.6;
             padding-bottom: 80px;
         }
         .page {
@@ -109,49 +108,33 @@
             border: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
             padding: 34px;
             backdrop-filter: blur(6px) saturate(120%);
         }
         @media (max-width: 880px) {
             .card { padding: 22px; gap: 18px; }
         }
-        /* ---------- CONTENU ---------- */
-        .content {
-            display:flex;
-            flex-direction:column;
-            gap:18px;
-        }
         h1.title {
             margin: 0;
             font-size: 1.8rem;
             color: #fff;
         }
-        h3.section {
-            margin: 0;
-            font-size: 15px;
-            color: #fff;
-            letter-spacing:0.2px;
-        }
-        .muted { color: var(--muted); font-size: 14px; }
-        .profile {
+        .content {
             background: rgba(255,255,255,0.02);
-            padding: 16px;
+            padding: 20px;
             border-radius: 10px;
             font-size: 15px;
             color:#f3f4f8;
+            line-height: 1.8;
         }
-        .skills, .experience, .education, .langs, .interests {
-            background: rgba(255,255,255,0.02);
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 14px;
-            color:#eaecef;
+        .content p {
+            margin: 0 0 16px 0;
+            text-align: justify;
         }
-        ul.clean { margin:0; padding-left:18px; }
-        ul.clean li { margin-bottom:8px; }
-        .section-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-        @media (max-width:880px) { .section-grid { grid-template-columns: 1fr; } }
+        .content p:last-child {
+            margin-bottom: 0;
+        }
 
         /* ---------- NAV BAR FIXE EN BAS ---------- */
         .bottom-nav {
@@ -205,50 +188,33 @@
 
 <main class="page">
     <article class="card">
+        <header>
+            <h1 class="title">Pourquoi un BUT RT ?</h1>
+        </header>
+
         <section class="content">
-            <header>
-                <h1 class="title">En savoir plus (E-Portfolio)</h1>
-            </header>
+            <p>C'est lors de ma recherche de stage de 3ème que j'entends pour la première fois le terme de cybersécurité. J'ai effectué mon stage dans l'entreprise Abicom, où j'ai pu apercevoir de loin le domaine de la cybersécurité. Comme la plupart des gens de ma classe, je n'avais aucune idée de ce que je voulais faire plus tard. Je me suis donc concentré sur la cybersécurité. Mes premières recherches en dehors du stage se sont déroulées dans le cadre d'un entraînement pour nous préparer à l'oral du brevet. Notre professeur principal nous a chargés d'un oral de 3 à 4 minutes dans lequel nous devions présenter un métier dans les grandes lignes. Mes recherches se sont portées sur l'ingénieur en cybersécurité.</p>
 
-            <div class="profile">
-                <h3 class="section">À propos de moi</h3>
-                <p class="muted">Je suis très investi dans ce qui me plaît, j'aime trouver les outils de développer mon imagination que ce soit en dessinant en jouant du piano programmer en python...</p>
-            </div>
+            <p>Une fois mon brevet en poche, je ne savais pas spécialement où aller. J'ai alors suivi une seconde générale et, pour mon année de première, j'ai choisi les spécialités maths, NSI et physique-chimie. Petit aparté : je n'ai pas choisi le parcours anglais euro, qui est de l'anglais renforcé avec un diplôme à la clé, car j'avais déjà suivi tout au long du collège le parcours Cambridge, qui me rajoutait 1 heure d'anglais par semaine avec 3 examens comportant une compréhension écrite, une expression écrite et une expression orale sur un sujet inconnu. Nous devions dialoguer avec un camarade choisi au hasard devant un jury anglais qui nous donnait un assortiment d'images pour faire naître une discussion. COVID oblige, le premier examen qui aurait dû prendre place en 5ème a été annulé, mais pour les 2 années suivantes, il a eu lieu. J'ai validé un niveau A2 en 4ème et j'ai failli valider le niveau B1 en 3ème, précisément à seulement 1 point près. J'ai donc reçu un second diplôme A2 à la frontière avec le B1.</p>
 
-            <div class="skills">
-                <h3 class="section">Parcours personnel</h3>
-                <ul class="clean">
-                    <li>Je peux aider quand sans abus bien sur je me suis donc engagé dans le BDE</li>
-                </ul>
-            </div>
+            <p>Pour revenir à mon année de première, je savais que l'anglais était très important dans tous les métiers touchant à l'informatique et autres domaines. Mais mes loisirs me permettent de constamment être confronté à cette langue. Il n'y a pas un jour sans que j'entende ou ne lise au moins un mot en anglais. J'ai une certaine passion pour les jeux vidéo, de manière assez poussée, qui me pousse à maîtriser un jargon technique qui est quasi tout le temps en anglais. Je suis également des créateurs de contenu anglophones. De plus, je pratique souvent du modding pour les jeux, ce qui consiste à ajouter du contenu non officiel créé par la communauté, par différentes méthodes qu'il faut découvrir grâce à la communauté des joueurs. Pour cela, il est obligatoire de maîtriser l'anglais à un certain niveau.</p>
 
-            <div class="experience">
-                <h3 class="section">Qualités humaines</h3>
-                <ul class="clean">
-                    <li>À l'écoute</li>
-                    <li>Compréhensif</li>
-                    <li>Essaye toujours d'être le plus juste possible</li>
-                </ul>
-            </div>
+            <p>L'anglais n'étant pas un souci, je me concentre sur mes spécialités. Une qui va me poser problème, c'est la physique. Les efforts à fournir sur celle-ci vont entacher mon temps de travail pour les maths, ce qui va m'apporter certaines lacunes. En terminale, j'ai donc décidé d'abandonner la spécialité physique. Cela m'a permis de remonter un peu mes maths. Mais lors de cette année, durant un salon de l'étudiant, je me renseigne sur la cybersécurité. Deux établissements retiennent mon attention : Télécom Saint-Étienne et l'IUT de Roanne. J'ai effectué les deux portes ouvertes : guidé par une étudiante à Télécom et par M. Matichard à Roanne. Les établissements, bien que différents, m'ont assez séduit. Même si le parcours était différent avec chacun ses exigences, je visais la meilleure situation : Télécom en premier vœu et Roanne en second. Vu le niveau requis pour Télécom, il fallait redoubler d'effort. L'erreur à ne surtout pas faire aurait été de négliger mon second vœu.</p>
 
-            <div class="education">
-                <h3 class="section">Anecdotes / Fun facts</h3>
-                <ul class="clean">
-                    <li>Je déteste l'injustice</li>
-                    <li>Depuis petit je voulais travailler dans « l'informatique » je voulais « faire des jeux vidéo »</li>
-                    <li>Je me passionne facilement pour les œuvres avec des univers complexes</li>
-                    <li>Il y'a pas mal de domaine que j'apprécie ou je suis « moyen »</li>
-                </ul>
-            </div>
+            <p>J'ai donc participé à la cordée de la réussite de Télécom Saint-Étienne avec une journée d'immersion des cours à suivre sur site durant les vacances scolaires dans une classe de première année, et une préparation au concours un samedi (GEIPI Polytech). Malheureusement, une des 3 épreuves du concours m'a porté préjudice : le QCM de maths. Tandis que les épreuves de spécialité maths et NSI ont atteint la moyenne. J'ai donc été refusé pour tous les établissements nécessitant ce concours. Bien évidemment, j'avais constitué un ensemble de beaux vœux de secours sur Parcoursup, comme des BTS informatique ou des licences info.</p>
+
+            <p>Mais le premier jour de Parcoursup, l'IUT de Roanne m'a accepté tout de suite. Je me demande si le fait d'avoir envoyé une seconde lettre de motivation a joué un rôle. Parcoursup limitant les caractères, je n'étais pas satisfait de la version « réduite » de ma lettre. Je suis alors allé chercher sur le site internet de l'IUT à qui je pourrais envoyer la version complète. J'ai trouvé le mail de Madame Zerhyou et lui ai envoyé la version complète de ma lettre.</p>
+
+            <p>Et c'est comme ça que je me suis retrouvé engagé dans ce BUT en RT. Je pense qu'il est bien mieux pour moi que le parcours ingénieur. Même si, sur le moment, j'avais eu beaucoup de peine à être refusé à Télécom, aujourd'hui je ne regrette absolument rien. Le GEIPI Polytech aura été une excellente expérience.</p>
         </section>
     </article>
 </main>
 
 <!-- ============ NAV BAR EN BAS ============ -->
 <nav class="bottom-nav">
-    <a href="{{ path('app_cv') }}">← CV</a>
-    <span class="nav-center active">Vous êtes ici : Pour en savoir Plus</span>
-    <a href="{{ path('app_why_but') }}">Pourquoi un BUT RT →</a>
+    <a href="{{ path('app_about') }}">← Pour en savoir plus</a>
+    <span class="nav-center active">Vous êtes ici : Pourquoi un BUT RT ?</span>
+    <a href="{{ path('app_cv') }}">Mise en pratique →</a>
 </nav>
 
 </body>
