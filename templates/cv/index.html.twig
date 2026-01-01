@@ -73,7 +73,8 @@
             100% { background-position: 5% 10%; filter: hue-rotate(60deg); }
         }
         @keyframes grid-shift { 0% { transform: translate(0, 0); } 100% { transform: translate(-50%, -50%); } }
-        @keyframes aurora-pulse { 0% { opacity: 0.8; } 50% { opacity: 0.5; } 100% { opacity: 0.8; } }
+        @keyframes aurora-pulse { 0% { opacity: 0.8; } 50% { opacity: 0.5; } 100% { opacity: 0.8; }
+        }
         
         /* ---------- LAYOUT & TYPO ---------- */
         :root{
@@ -262,6 +263,146 @@
             transition: 0.5s;
             color: #fff;
         }
+
+        /* ---------- Overlay + formulaire ---------- */
+        #downloadOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form.form {
+            background-color: #444444;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .lb {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .infos[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 20px;
+            background-color: #333333;
+            color: white;
+        }
+
+        #send {
+            --glow-color: rgb(176, 255, 189);
+            --glow-spread-color: rgba(123, 255, 160, 0.781);
+            --enhanced-glow-color: rgb(182, 175, 71);
+            --btn-color: rgba(13, 241, 21, 0.508);
+            border: .25em solid var(--glow-color);
+            padding: 1em 2em;
+            color: var(--glow-color);
+            font-size: 14px;
+            font-weight: bold;
+            background-color: var(--btn-color);
+            border-radius: 1em;
+            outline: none;
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                0 0 4em 1em var(--glow-spread-color),
+                inset 0 0 .05em .25em var(--glow-color);
+            text-shadow: 0 0 .5em var(--glow-color);
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        #send::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            top: 120%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
+            transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+
+        #send:hover {
+            color: var(--btn-color);
+            background-color: var(--glow-color);
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                0 0 4em 2em var(--glow-spread-color),
+                inset 0 0 .75em .25em var(--glow-color);
+        }
+
+        #send:active {
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+                0 0 2.5em 2em var(--glow-spread-color),
+                inset 0 0 .5em .25em var(--glow-color);
+        }
+
+        #limpar {
+            --glow-color: rgb(255, 176, 176);
+            --glow-spread-color: rgba(255, 123, 123, 0.781);
+            --enhanced-glow-color: rgb(182, 175, 71);
+            --btn-color: rgba(241, 13, 13, 0.508);
+            border: .25em solid var(--glow-color);
+            padding: 1em 2em;
+            color: var(--glow-color);
+            font-size: 14px;
+            font-weight: bold;
+            background-color: var(--btn-color);
+            border-radius: 1em;
+            outline: none;
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                0 0 4em 1em var(--glow-spread-color),
+                inset 0 0 .05em .25em var(--glow-color);
+            text-shadow: 0 0 .5em var(--glow-color);
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        #limpar::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            top: 120%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
+            transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+
+        #limpar:hover {
+            color: var(--btn-color);
+            background-color: var(--glow-color);
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                0 0 4em 2em var(--glow-spread-color),
+                inset 0 0 .75em .25em var(--glow-color);
+        }
+
+        #limpar:active {
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+                0 0 2.5em 2em var(--glow-spread-color),
+                inset 0 0 .5em .25em var(--glow-color);
+        }
     </style>
 </head>
 <body>
@@ -287,7 +428,7 @@
                 <div><b>Permis :</b> Non</div>
             </div>
             <div class="actions">
-                <button class="fancy-btn">Télécharger</button>
+                <button id="downloadBtn" class="fancy-btn">Télécharger</button>
                 <button class="fancy-btn" onclick="location.href='mailto:evan.chavot@icloud.com'">Contacter</button>
             </div>
         </aside>
@@ -340,8 +481,7 @@
                 <div class="interests">
                     <h3 class="section">Centres d'intérêt</h3>
                     <ul class="clean">
-                        <li>
-							Le Japon — culture, architecture, mangas</li>
+                        <li>Le Japon — culture, architecture, mangas</li>
                         <li>Comics Américains & adaptations (Marvel / DC)</li>
                         <li>Jeux vidéo</li>
                         <li>Univers Disney / Pixar</li>
@@ -359,5 +499,63 @@
     <a href="{{ path('app_about') }}" >Pour en savoir plus →</a>
 </nav>
 
+<!-- ========= OVERLAY + FORMULAIRE ========= -->
+<div id="downloadOverlay">
+  <form class="form">
+    <label class="lb" for="nome">Name:</label>
+    <input name="nome" id="nome" type="text" class="infos">
+
+    <label for="email" class="lb">E-mail:</label>
+    <input name="email" id="email" type="email" class="infos">
+
+    <label for="data" class="lb">Date:</label>
+    <input name="data" id="data" type="date" class="infos">
+
+    <button id="send" type="submit">Send</button>
+    <button id="limpar" type="reset">Clear </button>
+  </form>
+</div>
+
+<script>
+  const downloadBtn = document.getElementById('downloadBtn');
+  const overlay     = document.getElementById('downloadOverlay');
+  const form        = overlay.querySelector('form');
+  const clearBtn    = document.getElementById('limpar');
+
+  // Ouvrir le formulaire
+  downloadBtn.addEventListener('click', function () {
+    overlay.style.display = 'flex';
+  });
+
+  // Fermer avec Clear
+  clearBtn.addEventListener('click', function () {
+    overlay.style.display = 'none';
+  });
+
+  // Fermer en cliquant en dehors du formulaire
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      overlay.style.display = 'none';
+      form.reset();
+    }
+  });
+
+  // Envoi du formulaire + téléchargement du PDF
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const link = document.createElement('a');
+    link.href = '{{ asset("documents/CV_Evan_Chavot.pdf") }}';
+    link.download = 'CV_Evan_Chavot.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    overlay.style.display = 'none';
+    form.reset();
+  });
+</script>
+
 </body>
 </html>
+
