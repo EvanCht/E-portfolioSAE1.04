@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Mise en pratique — Evan Chavot</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        /* ----------PATTERN AURORA (même fond que CV)---------- */
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at 20% 30%,
+                rgba(138, 43, 226, 0.8) 0%,
+                rgba(138, 43, 226, 0) 60%
+            ),
+            radial-gradient(
+                ellipse at 80% 50%,
+                rgba(0, 191, 255, 0.7) 0%,
+                rgba(0, 191, 255, 0) 70%
+            ),
+            radial-gradient(
+                ellipse at 50% 80%,
+                rgba(50, 205, 50, 0.6) 0%,
+                rgba(50, 205, 50, 0) 65%
+            ),
+            linear-gradient(135deg, #000000 0%, #0a0520 100%);
+            background-blend-mode: overlay, screen, hard-light;
+            z-index: -10;
+            animation: aurora-drift 25s infinite alternate ease-in-out;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.02) 0px,
+                rgba(255, 255, 255, 0.02) 1px,
+                transparent 1px,
+                transparent 40px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 60px
+            );
+        }
+        .container::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center,
+                transparent 70%,
+                rgba(10, 5, 32, 0.8) 100%
+            );
+        }
+        @keyframes aurora-drift {
+            0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+            50% { background-position: -10% -5%; filter: hue-rotate(30deg) brightness(1.15); }
+            100% { background-position: 5% 10%; filter: hue-rotate(60deg); }
+        }
+
+        /* ---------- LAYOUT ---------- */
+        :root{
+            --card-bg: rgba(10, 8, 20, 0.65);
+            --glass-border: rgba(255,255,255,0.06);
+            --muted: #cfcdd3;
+        }
+        body{
+            margin:0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: #eef0f6;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+            padding-bottom: 80px; /* pour la navbar */
+        }
+        main.page {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 64px 20px;
+        }
+        .card {
+            width: 1100px;
+            max-width: calc(100% - 40px);
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(6px) saturate(120%);
+            padding: 30px;
+        }
+
+        h1.title {
+            margin: 0 0 20px 0;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .intro {
+            text-align: center;
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .block {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .block h2 {
+            font-size: 16px;
+            margin: 0 0 10px 0;
+        }
+        .block p {
+            font-size: 14px;
+            margin: 0 0 10px 0;
+            color: var(--muted);
+        }
+        .block img {
+            width: 100%;
+            max-height: 260px;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+            margin-top: 8px;
+        }
+
+        /* ---------------- NAV BAR FIXE EN BAS ---------------- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+        }
+        .bottom-nav a, .bottom-nav .nav-center {
+            padding: 12px 24px;
+            margin: 0 20px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .bottom-nav a {
+            cursor: pointer;
+        }
+        .bottom-nav a:hover {
+            transform: scale(1.05) rotate(3deg);
+            background: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 0, 0, 0.6), rgba(138, 43, 226, 0.2));
+        }
+        .bottom-nav .nav-center {
+            cursor: not-allowed;
+            pointer-events: none;
+            color: rgba(255, 255, 255, 0.7);
+            background: transparent;
+        }
+        .bottom-nav .nav-center.active {
+            transform: scale(1.04) rotate(3deg);
+            background: radial-gradient(circle farthest-corner at 10% 20%, rgb(0, 191, 255), rgba(138, 43, 226, 0.5));
+            transition: 0.5s;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container"></div>
+
+<main class="page">
+    <article class="card">
+        <h1 class="title">Mise en pratique</h1>
+        <p class="intro">
+            Quelques exemples concrets de compétences travaillées pendant la formation, illustrés par des captures d’écran.
+        </p>
+
+        <div class="grid">
+            <!-- 1. Lire, exécuter, corriger et modifier un programme -->
+            <section class="block">
+                <h2>1. Lire, exécuter, corriger et modifier un programme</h2>
+                <p>Voici un morceau de code Arduino modifié et corrigé, avec à gauche la version d’origine et à droite la version corrigée.</p>
+                <img src="{{ asset('images/cap_1.jpg') }}" alt="Avant / Après correction de code Arduino">
+            </section>
+
+            <!-- 2. Utiliser un système informatique et ses outils -->
+            <section class="block">
+                <h2>2. Utiliser un système informatique et ses outils</h2>
+                <p>Utilisation d’une machine virtuelle Ubuntu Linux avec dossier partagé entre la VM et Windows, ainsi que différents plug-ins installés pour Linux.</p>
+                <img src="{{ asset('images/cap_2.jpg') }}" alt="Utilisation d’une VM Ubuntu Linux et de ses outils">
+            </section>
+
+                       <!-- 3. Traduire un algorithme dans un langage et pour un environnement donné -->
+            <section class="block">
+                <h2>3. Traduire un algorithme dans un langage et pour un environnement donné</h2>
+                <p>
+                    Implémentation d’un même programme à partir d’un énoncé d’algorithme sur le calcul d’impôts,
+                    en plusieurs formes :langage C et langage Python.
+                </p>
+
+                {# Pseudo-code #}
+                <img src="{{ asset('images/cap_ps.jpg') }}" alt="Enoncer du calcul d’impôts (énoncé et algorithme)">
+                
+                {# Code C / capture principale (cap_3) #}
+                <img src="{{ asset('images/cap_3.jpg') }}" alt="Implémentation en langage C du calcul d’impôts">
+                
+                {# Code Python #}
+                <img src="{{ asset('images/cap_py.jpg') }}" alt="Implémentation en langage Python du calcul d’impôts">
+            </section>
+
+
+            <!-- 4. Maîtriser les principes des systèmes d’exploitation et configurer un réseau local -->
+            <section class="block">
+                <h2>4. Maîtriser les principes des systèmes d’exploitation et configurer un réseau local</h2>
+                <p>Voici une capture d’écran d’une simulation de réseau local, montrant plusieurs sous-réseaux interconnectés.</p>
+                <img src="{{ asset('images/cap_4.jpg') }}" alt="Simulation de réseau local">
+                <p style="margin-top:10px;">
+                    Si vous avez des questions ou envie d’étudier certains fichiers, n’hésitez pas à me contacter via la page CV.
+                </p>
+            </section>
+        </div>
+    </article>
+</main>
+
+<!-- ============ NAV BAR EN BAS ============ -->
+<nav class="bottom-nav">
+    <a href="{{ path('app_why_but') }}">← Pourquoi un BUT RT ?</a>
+    <span class="nav-center active">Vous êtes ici : Mise en pratique</span>
+    <a href="{{ path('home') }}">Accueil →</a>
+</nav>
+
+</body>
+</html>
