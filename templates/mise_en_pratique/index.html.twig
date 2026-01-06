@@ -5,7 +5,7 @@
     <title>Mise en pratique — Evan Chavot</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
-        /* ----------PATTERN AURORA (même fond que CV)---------- */
+        /* ----------PATTERN AURORA---------- */
         .container {
             position: fixed;
             top: 0;
@@ -197,6 +197,28 @@
             transition: 0.5s;
             color: #fff;
         }
+
+        .site-footer-wrapper {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 5; /* inférieur à la bottom-nav (z-index: 9999) */
+            margin-top: 20px;
+        }
+
+        .site-footer {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(236, 240, 241, 0.7);
+        }
+
+        .site-footer p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -262,6 +284,12 @@
     <span class="nav-center active">Vous êtes ici : Mise en pratique</span>
     <a href="{{ path('home') }}">Accueil →</a>
 </nav>
+
+<div class="site-footer-wrapper">
+    <footer class="site-footer">
+        <p>© 2026 Evan Chavot — Tous droits réservés.</p>
+    </footer>
+</div>
 
 </body>
 </html>
